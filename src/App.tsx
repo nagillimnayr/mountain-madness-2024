@@ -1,4 +1,4 @@
-
+import { InputImage } from '@/components/upload/InputImage';
 
 function App() {
 
@@ -13,6 +13,7 @@ function App() {
             A New Perspective!
           </h3>
         </div>
+        <InputImage />
       </div>
       
     </>
