@@ -23,18 +23,21 @@ export const Puck = ({position} : PuckProps) => {
 
   useFrame((state, delta) => {
     timer.current += delta;
-    const x = Math.cos(timer.current);
-    const z = Math.sin(timer.current);
+    const radius = 0.5;
+    const x = radius * Math.cos(timer.current);
+    const z = radius * Math.sin(timer.current);
     puckRef.current.position.set(x, 0, z);
 
   });
 
   return (
-    <object3D ref={puckRef}>
+    <object3D 
+      ref={puckRef}
+      position={position}>
       <Cylinder 
         args={[PUCK_RADIUS, PUCK_RADIUS, PUCK_THICKNESS]} 
-        position={position}>
-        <meshStandardMaterial color={'gray'} />
+        position-y={PUCK_THICKNESS / 2}>
+        <meshStandardMaterial color={'cyan'}/>
       </Cylinder>
     </object3D>
   )
