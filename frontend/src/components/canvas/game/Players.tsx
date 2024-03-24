@@ -8,21 +8,7 @@ import { serverStateSchema, playersSchema } from '@/server/server-types';
 import { useFrame } from '@react-three/fiber';
 import { socket } from '@/socket/socket';
 
-// const fetchPlayers = async () => {
-//   const res = await fetch("http://localhost:3000/players", {
-//     method: "GET", 
-//   });
-  
-//   // console.log('res: ', res);
-//   const json = await res.json();
-//   // console.log('res.json(): ', json);
-//   const parsed = await playersSchema.safeParseAsync(json);
-//   if (!parsed.success) {
-//     console.log(parsed.error);
-//     return;
-//   }
-//   return parsed.data;
-// }
+
 
 export const Players = () => {
 
