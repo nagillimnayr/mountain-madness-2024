@@ -1,4 +1,4 @@
-import { PADDLE_BASE_RADIUS, PADDLE_BASE_THICKNESS, PADDLE_HANDLE_HEIGHT, PADDLE_HANDLE_RADIUS, TABLE_LENGTH } from '@/lib/constants';
+import { PADDLE_BASE_RADIUS, PADDLE_BASE_THICKNESS, PADDLE_HANDLE_HEIGHT, PADDLE_HANDLE_RADIUS, PADDLE_Z_OFFSET, TABLE_LENGTH } from '@/lib/constants';
 import { useAppSelector } from '@/state/hooks';
 import { selectPosition } from '@/state/playersSlice';
 import { Cylinder } from '@react-three/drei';
@@ -11,10 +11,10 @@ import { Object3D } from 'three'
 export const Paddle = () => {
   const paddleRef = useRef<Object3D>(null!);
 
-  const xPosition = useAppSelector(selectPosition);
+  const position = useAppSelector(selectPosition);
 
   return (
-    <object3D ref={paddleRef} position-z={TABLE_LENGTH * 1.2/3} position-x={xPosition}>
+    <object3D ref={paddleRef} position-z={position[1]} position-x={position[0]}>
       <group position-y={PADDLE_BASE_THICKNESS / 2}>
         <Cylinder args={[PADDLE_BASE_RADIUS, PADDLE_BASE_RADIUS, PADDLE_BASE_THICKNESS]}>
           <meshStandardMaterial color={'red'}/>
