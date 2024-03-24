@@ -1,14 +1,17 @@
+import { SHADOWS, TABLE_HEIGHT, TABLE_LENGTH, TABLE_WIDTH } from '@/lib/constants';
 import { Box } from '@react-three/drei';
 
-const TABLE_WIDTH = 4;
-const TABLE_LENGTH = 7;
-const TABLE_HEIGHT = 0.2;
 
 export const Table = () => {
   
   return (
-    <Box args={[TABLE_WIDTH, TABLE_HEIGHT, TABLE_LENGTH]}>
-      <meshStandardMaterial color={'red'} />
-    </Box>
+    <object3D >
+      <Box args={[TABLE_WIDTH, TABLE_HEIGHT, TABLE_LENGTH]}
+        position-y={-TABLE_HEIGHT / 2}
+        castShadow={SHADOWS}
+        receiveShadow={SHADOWS}>
+        <meshStandardMaterial color={'#ffffff'} />
+      </Box>
+    </object3D>
   )
 }
