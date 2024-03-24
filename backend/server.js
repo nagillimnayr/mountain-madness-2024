@@ -52,6 +52,7 @@ app.post('/update-leaderboard', async (req, res) => {
     res.status(200).json({ message: 'Leaderboard updated successfully.' });
 });
 
+
 // Endpoint to get leaderboard
 app.get('/leaderboard', (req, res) => {
     leaderboardCollection.find({})
