@@ -8,7 +8,7 @@ export function useKeyboardControls() {
   const dispatch = useAppDispatch();
   useEffect(() => {
     const handleKeydown = (event: KeyboardEvent) => {
-      console.log(event.key);
+      // console.log(event.key);
       switch (event.key) {
         case "ArrowLeft": 
           dispatch(movePaddle(-MOVE_SPEED));
