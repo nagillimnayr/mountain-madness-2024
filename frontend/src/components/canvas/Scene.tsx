@@ -13,7 +13,7 @@ export const Scene = () => {
       >
         <PerspectiveCamera makeDefault position={[0, 10, 10]} />
         <CameraControls makeDefault />
-        <directionalLight position={[5, 2, 2]} intensity={1} />
+        <directionalLight position={[5, 2, 2]} intensity={2} />
         <Game />
       </Canvas>
     </div>
