@@ -1,0 +1,15 @@
+{
+  "name": "mountain-madness-2014",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "install": "bash ./install.sh"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+
+  }
+}
