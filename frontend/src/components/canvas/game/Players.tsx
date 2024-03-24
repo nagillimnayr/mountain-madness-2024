@@ -11,49 +11,10 @@ import { socket } from '@/socket/socket';
 
 
 export const Players = () => {
-
-  const paddle1 = useRef<Object3D>(null!);
-  const paddle2 = useRef<Object3D>(null!);
-  // const queryClient = useQueryClient();
-  // const query = useQuery({
-  //   queryKey: ['fetchPlayers'],
-  //   queryFn: fetchPlayers
-  // })
-
-  // const updatePlayers = useCallback(async () => {
-  //   const players = await fetchPlayers();
-  //   if (!players) return;
-  //   const {player1, player2} = players;
-  //   paddle1.current.position.set(player1.position.x, 0, player1.position.y);
-  //   paddle2.current.position.set(player2.position.x, 0, player2.position.y);
-  // }, []);
-
-  // useFrame(() => {
-  //   // updatePlayers();
-  // });
-
-  useEffect(() => {
-    const onUpdatePos1 = ({x, y}: { x: number, y: number}) => {
-        paddle1.current.position.set(x, 0, y);
-    }
-    const onUpdatePos2 = ({x, y}: { x: number, y: number}) => {
-        paddle2.current.position.set(x, 0, y);
-    }
-
-    socket.on('player1 pos', onUpdatePos1);
-    socket.on('player2 pos', onUpdatePos2);
-
-    return () => {
-      socket.off('player1 pos', onUpdatePos1);
-      socket.off('player2 pos', onUpdatePos2);
-    }
-
-  }, []);
-
   return (
     <>
-    <Paddle ref={paddle1} color={'red'}/>
-    <Paddle ref={paddle2} color={'blue'}/>
+    <Paddle  color={'red'} id={1}/>
+    <Paddle  color={'blue'} id={2}/>
     </>
   )
 }

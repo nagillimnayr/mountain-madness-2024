@@ -9,6 +9,8 @@ import { createServer } from 'node:http';
 
 import { ServerState, serverState } from './server-state';
 import { serverStateSchema, playerSchema, vector2Schema } from './server-types';
+import { Vector2 } from 'three';
+import { PADDLE_LEFT_BOUND, PADDLE_RIGHT_BOUND, PUCK_SPEED } from '@/lib/constants';
 
 dotenv.config();
 
@@ -32,6 +34,14 @@ const io = new Server(server, {
 
 io.on('connection', (socket) => {
   console.log('a user connected');
+  io.emit('player1 pos', serverState.player1.position);
+  io.emit('player2 pos', serverState.player2.position);
+  io.emit('puck pos', serverState.puck.position);
+  serverState.puck.velocity = new Vector2(Math.random(), Math.random());
+  serverState.puck.velocity.normalize();
+  serverState.puck.velocity.multiplyScalar(PUCK_SPEED);
+  // console.log('velocity: ', ...serverState.puck.velocity);
+
   socket.on('player1 pos', ({x, y}: { x: number, y: number}) => {
     serverState.player1.position.set(x, y);
     io.emit('player1 pos', {x, y});
@@ -40,6 +50,24 @@ io.on('connection', (socket) => {
     serverState.player2.position.set(x, y);
     io.emit('player2 pos', {x, y});
   });
+
+  socket.on('player2 move', ({delta}:{ delta: number}) => {
+    let vel = serverState.player2.velocity;
+    let x = serverState.player2.position.x;
+    x = x + vel * delta;
+    if (x < PADDLE_LEFT_BOUND) {
+      x = PADDLE_LEFT_BOUND;
+      vel *= -1;
+    }
+    else if (x > PADDLE_RIGHT_BOUND) {
+      x = PADDLE_RIGHT_BOUND;
+      vel *= -1;
+    }
+
+    serverState.player2.position.setX(x);
+    serverState.player2.velocity = vel;
+    io.emit('player2 pos', serverState.player2.position);
+  })
 
   socket.on('set puck vel', ({x, y}: { x: number, y: number}) => {
     serverState.puck.velocity.set(x, y);

@@ -1,4 +1,4 @@
-import { FORWARD_PUCK_BOUND, LEFT_PUCK_BOUND, PLAYER_OFFSET, REAR_PUCK_BOUND, RIGHT_PUCK_BOUND } from '@/lib/constants';
+import { FORWARD_PUCK_BOUND, LEFT_PUCK_BOUND, PLAYER_OFFSET, PUCK_SPEED, REAR_PUCK_BOUND, RIGHT_PUCK_BOUND } from '@/lib/constants';
 import { MIN_DIST } from '@/state/puckSlice';
 import { Vector2 } from 'three'
 
@@ -24,7 +24,7 @@ export type PuckState = {
 
 export type ServerState = {
   player1: PlayerState;
-  player2: PlayerState;
+  player2: PlayerState & {velocity: number};
   puck: PuckState;
   updatePuck(delta: number): void;
 }
@@ -37,7 +37,8 @@ const initialPlayer1State = {
 
 const initialPlayer2State = {
   position: new Vector2(0, -PLAYER_OFFSET),
-  score: 0
+  score: 0,
+  velocity: PUCK_SPEED
 }
 const initialPuckState = {
   position: new Vector2(0, 0),
@@ -82,6 +83,7 @@ export const serverState: ServerState = {
     }
     
     _puckPos.set(x, y);
+    this.puck.position.set(x, y);
     _paddlePos1.copy(this.player1.position);
     _paddlePos2.copy(this.player2.position);
 
@@ -99,7 +101,7 @@ export const serverState: ServerState = {
         _vel.copy(_direction);
         _vel.multiplyScalar(speed);
         vel.copy(_vel);
-        this.puck.velocity.copy(vel);
+        // this.puck.velocity.copy(vel);
       }
     }
     
