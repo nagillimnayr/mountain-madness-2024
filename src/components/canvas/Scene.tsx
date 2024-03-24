@@ -1,7 +1,6 @@
 import { Canvas } from '@react-three/fiber';
-import { Game } from './Game';
+import { Game } from './game/Game';
 import { CameraControls, PerspectiveCamera } from '@react-three/drei';
-import { degToRad } from 'three/src/math/MathUtils.js';
 
 
 export const Scene = () => {
@@ -14,6 +13,7 @@ export const Scene = () => {
       >
         <PerspectiveCamera makeDefault position={[0, 10, 10]} />
         <CameraControls makeDefault />
+        <directionalLight position={[5, 2, 2]} intensity={1} />
         <Game />
       </Canvas>
     </div>
