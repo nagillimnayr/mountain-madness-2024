@@ -2,9 +2,9 @@ import { PADDLE_BASE_RADIUS, PADDLE_BASE_THICKNESS, PADDLE_HANDLE_HEIGHT, PADDLE
 import { useAppSelector } from '@/state/hooks';
 import { selectPosition } from '@/state/playersSlice';
 import { Cylinder } from '@react-three/drei';
+import { useFrame } from '@react-three/fiber';
 import { useRef } from 'react';
-import { Object3D } from 'three'
-
+import { Object3D, Vector2 } from 'three'
 
 
 

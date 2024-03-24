@@ -1,4 +1,4 @@
-import { PADDLE_BASE_RADIUS, PUCK_RADIUS, PUCK_THICKNESS, SHADOWS, TABLE_LENGTH, TABLE_WIDTH } from '@/lib/constants';
+import { FORWARD_PUCK_BOUND, LEFT_PUCK_BOUND, PADDLE_BASE_RADIUS, PUCK_RADIUS, PUCK_SPEED, PUCK_THICKNESS, REAR_PUCK_BOUND, RIGHT_PUCK_BOUND, SHADOWS, TABLE_LENGTH, TABLE_WIDTH } from '@/lib/constants';
 import { GameState } from '@/state/store';
 import { Cylinder } from '@react-three/drei'
 import { useFrame } from '@react-three/fiber';
@@ -12,19 +12,14 @@ import { Object3D, Vector2, Vector3, Vector3Tuple } from 'three';
   Diameter: 80mm
 */
 
-const RIGHT_PUCK_BOUND = (TABLE_WIDTH / 2) - PUCK_RADIUS;
-const LEFT_PUCK_BOUND = - RIGHT_PUCK_BOUND;
-const FORWARD_PUCK_BOUND = (TABLE_LENGTH / 2) - PUCK_RADIUS;
-const REAR_PUCK_BOUND = -FORWARD_PUCK_BOUND;
-
-const SPEED = 0.75;
-
 const _puckPos = new Vector2();
 const _paddlePos = new Vector2();
 const _diff = new Vector2();
 const _direction = new Vector2();
 const _vel = new Vector2();
-const MIN_DIST = PUCK_RADIUS + PADDLE_BASE_RADIUS;
+
+
+export const MIN_DIST = PUCK_RADIUS + PADDLE_BASE_RADIUS;
 
 type PuckProps = {
   position?: Vector3Tuple,
@@ -37,7 +32,7 @@ export const Puck = ({position} : PuckProps) => {
     /* Randomize initial direction. */
     const velocity = new Vector2(Math.random(), Math.random());
     velocity.normalize();
-    velocity.multiplyScalar(SPEED)
+    velocity.multiplyScalar(PUCK_SPEED);
     velocityRef.current = velocity;
   }, [])
   // const timer = useRef(0);
