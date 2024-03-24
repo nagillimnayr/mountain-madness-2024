@@ -1,9 +1,18 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const { v4: uuidv4 } = require('uuid');
+const { connectToDatabase } = require('./database');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
+let leaderboardCollection;
+
+connectToDatabase().then(db => {
+    leaderboardCollection = db.collection("players");
+})
+// probably add error handling for connection error
+
+
 
 // Middleware
 app.use(bodyParser.json());
@@ -31,15 +40,24 @@ app.post('/update-positions', (req, res) => {
 });
 
 // Endpoint to update leaderboard
-app.post('/update-leaderboard', (req, res) => {
-    const { winner } = req.body;
-    const index = leaderboard.findIndex(player => player.name === winner);
-    if (index !== -1) {
-        leaderboard[index].wins++;
+app.post('/update-leaderboard', async (req, res) => {
+    const winner = req.body;
+    const player = await leaderboardCollection.findOne({ name: winner.name });
+    if (!player) {
+        await leaderboardCollection.insertOne({ name: winner.name, wins: 1});
     } else {
-        leaderboard.push({ name: winner, wins: 1 });
+        await leaderboardCollection.updateOne({ name: winner.name }, {$inc: { wins: 1} });
     }
+
     res.status(200).json({ message: 'Leaderboard updated successfully.' });
+});
+
+
+// Endpoint to get leaderboard
+app.get('/leaderboard', (req, res) => {
+    leaderboardCollection.find({})
+            .toArray()
+            .then(players => res.status(200).json(players));
 });
 
 // Endpoint to join a room
@@ -66,11 +84,6 @@ app.post('/create-room', (req, res) => {
     const roomId = generateRoomId(); // Generate a new room ID
     rooms.set(roomId, { players: [] });
     res.status(200).json({ roomId });
-});
-
-// Endpoint to get leaderboard
-app.get('/leaderboard', (req, res) => {
-    res.status(200).json(leaderboard);
 });
 
 app.listen(PORT, () => {
