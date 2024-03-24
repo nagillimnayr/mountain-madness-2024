@@ -10,6 +10,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "camera-controls": "^2.8.3"
+    "camera-controls": "^2.8.3",
+    "rxjs": "^7.8.1"
   }
 }
