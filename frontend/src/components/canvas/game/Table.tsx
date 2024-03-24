@@ -1,8 +1,6 @@
+import { TABLE_HEIGHT, TABLE_LENGTH, TABLE_WIDTH } from '@/lib/constants';
 import { Box } from '@react-three/drei';
 
-const TABLE_WIDTH = 4;
-const TABLE_LENGTH = 7;
-const TABLE_HEIGHT = 0.2;
 
 export const Table = () => {
   
