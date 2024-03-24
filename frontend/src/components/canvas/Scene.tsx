@@ -1,6 +1,7 @@
 import { Canvas } from '@react-three/fiber';
 import { Game } from './game/Game';
 import { CameraControls, PerspectiveCamera } from '@react-three/drei';
+import { SHADOWS } from '@/lib/constants';
 
 
 export const Scene = () => {
@@ -10,10 +11,11 @@ export const Scene = () => {
         gl={{
           preserveDrawingBuffer: true
         }}
+        shadows={SHADOWS}
       >
         <PerspectiveCamera makeDefault position={[0, 10, 10]} />
         <CameraControls makeDefault />
-        <directionalLight position={[5, 2, 2]} intensity={2} />
+        <pointLight position={[5, 3, 2]} intensity={50} castShadow={SHADOWS}/>
         <Game />
       </Canvas>
     </div>

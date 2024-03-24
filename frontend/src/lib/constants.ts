@@ -1,3 +1,4 @@
+export const SHADOWS = false;
 
 /* Units in meters. */
 export const TABLE_WIDTH = 1.2192;

@@ -1,4 +1,4 @@
-import { PUCK_RADIUS, PUCK_THICKNESS } from '@/lib/constants';
+import { PUCK_RADIUS, PUCK_THICKNESS, SHADOWS } from '@/lib/constants';
 import { Cylinder } from '@react-three/drei'
 import { useFrame } from '@react-three/fiber';
 import { useRef } from 'react';
@@ -36,7 +36,8 @@ export const Puck = ({position} : PuckProps) => {
       position={position}>
       <Cylinder 
         args={[PUCK_RADIUS, PUCK_RADIUS, PUCK_THICKNESS]} 
-        position-y={PUCK_THICKNESS / 2}>
+        position-y={PUCK_THICKNESS / 2}
+        castShadow={SHADOWS}>
         <meshStandardMaterial color={'cyan'}/>
       </Cylinder>
     </object3D>
