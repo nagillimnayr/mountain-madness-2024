@@ -38,7 +38,7 @@ export const Puck = ({position} : PuckProps) => {
         args={[PUCK_RADIUS, PUCK_RADIUS, PUCK_THICKNESS]} 
         position-y={PUCK_THICKNESS / 2}
         castShadow={SHADOWS}>
-        <meshStandardMaterial color={'cyan'}/>
+        <meshStandardMaterial color={'#737373'}/>
       </Cylinder>
     </object3D>
   )
