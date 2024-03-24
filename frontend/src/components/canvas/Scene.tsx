@@ -14,7 +14,10 @@ export const Scene = () => {
         shadows={SHADOWS}
       >
         <PerspectiveCamera makeDefault position={[0, 10, 10]} />
-        <CameraControls makeDefault />
+        <CameraControls ref={(controls) => {
+          if (!controls) return;
+          controls.mouseButtons.right = 1;
+        }} makeDefault />
         <pointLight position={[5, 3, 2]} intensity={50} castShadow={SHADOWS}/>
         <Game />
       </Canvas>
