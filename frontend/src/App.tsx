@@ -1,5 +1,6 @@
 import { Layout } from './components/dom/layout/Layout';
 import { Scene } from './components/canvas/Scene';
+import { UserInterface } from './components/dom/user-interface/UserInterface';
 
 function App() {
 
@@ -7,6 +8,7 @@ function App() {
     <>
       <Layout>
         <Scene />
+        <UserInterface />
       </Layout>
     </>
   )
