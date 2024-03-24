@@ -1,4 +1,5 @@
 import { Paddle } from './Paddle';
+import { Players } from './Players';
 import { PointerDetector } from './PointerDetector';
 import { Puck } from './Puck';
 import { Table } from './Table';
@@ -10,8 +11,9 @@ export const Game = () => {
     <>
       <Table />
       <Puck />
-      <Paddle  />
+      {/* <Paddle  /> */}
       <PointerDetector />
+      <Players />
     </>
   )
 }

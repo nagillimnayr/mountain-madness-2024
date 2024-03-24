@@ -18,9 +18,14 @@ connectToDatabase().then(db => {
 app.use(bodyParser.json());
 
 // Store current positions
-let player1Position = { x: 0, y: 0, z: 0 };
+let player1 = {
+    position: { x: 0, y: 0, z: 0 }
+};
 let player2Position = { x: 0, y: 0, z: 0 };
 let ballPosition = { x: 0, y: 0, z: 0 };
+
+
+
 
 // Define room state
 const rooms = new Map();
