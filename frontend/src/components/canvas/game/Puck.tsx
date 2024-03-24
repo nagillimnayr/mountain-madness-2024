@@ -19,16 +19,16 @@ export const Puck = ({position} : PuckProps) => {
 
   const puckRef = useRef<Object3D>(null!);
 
-  const timer = useRef(0);
+  // const timer = useRef(0);
 
-  useFrame((state, delta) => {
-    timer.current += delta;
-    const radius = 0.5;
-    const x = radius * Math.cos(timer.current);
-    const z = radius * Math.sin(timer.current);
-    puckRef.current.position.set(x, 0, z);
+  // useFrame((state, delta) => {
+  //   timer.current += delta;
+  //   const radius = 0.5;
+  //   const x = radius * Math.cos(timer.current);
+  //   const z = radius * Math.sin(timer.current);
+  //   puckRef.current.position.set(x, 0, z);
 
-  });
+  // });
 
   return (
     <object3D 

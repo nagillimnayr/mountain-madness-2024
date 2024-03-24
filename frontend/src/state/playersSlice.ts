@@ -1,21 +1,21 @@
 import { PayloadAction, createSlice } from '@reduxjs/toolkit';
-import { Vector3Tuple, Vector3 } from 'three';
 import { GameState } from './store';
+import { PADDLE_BASE_RADIUS, TABLE_WIDTH } from '@/lib/constants';
 
-const _position: Vector3 = new Vector3();
-const _translation: Vector3 = new Vector3();
+const RIGHT_BOUND = (TABLE_WIDTH / 2) - PADDLE_BASE_RADIUS;
+const LEFT_BOUND = -RIGHT_BOUND;
 
 export type PlayerState = {
   name: string,
   score: number,
-  /* Position of player paddle. */
-  position: Vector3Tuple,
+  /* X position of player paddle. */
+  xPosition: number,
 }
 
 const playerInitialState: PlayerState = {
     name: "",
     score: 0,
-    position: [0, 0, 0]
+    xPosition: 0
 };
 
 
@@ -29,20 +29,21 @@ export const playersSlice = createSlice({
     incrementScore: (state) => {
       state.score += 1;
     },
-    updatePosition: (state, action: PayloadAction<Vector3Tuple>) => {
-      _position.set(...state.position);
-      _translation.set(...action.payload);
-      _position.add(_translation);
-      state.position = _position.toArray();
-    }
+    movePaddle: (state, action: PayloadAction<number>) => {
+      let x = state.xPosition;
+      x += action.payload;
+      if (x < LEFT_BOUND) x = LEFT_BOUND;
+      else if (x > RIGHT_BOUND) x = RIGHT_BOUND;
+      state.xPosition = x;
+    },
   }
 });
 
 /* Export actions. */
-export const { incrementScore, updatePosition } = playersSlice.actions;
+export const { incrementScore, movePaddle } = playersSlice.actions;
 
 
 /* Export selectors. */
 export const selectName = (state: GameState) => state.players.name;
 export const selectScore = (state: GameState) => state.players.score;
-export const selectPosition = (state: GameState) => state.players.position;
+export const selectPosition = (state: GameState) => state.players.xPosition;
