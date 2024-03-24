@@ -21,8 +21,8 @@ export const PointerDetector = () => {
     <object3D position={[0, 0, LENGTH * 1.5]}>
       <Box args={[WIDTH, HEIGHT, LENGTH]} position-y={HEIGHT/2}
         onPointerMove={handlePointerMove}>
-        {/* <MeshDiscardMaterial /> */}
-        <Wireframe />
+        <MeshDiscardMaterial />
+        {/* <Wireframe /> */}
       </Box>
     </object3D>
   )

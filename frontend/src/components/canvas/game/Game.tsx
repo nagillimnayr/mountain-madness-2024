@@ -9,7 +9,7 @@ export const Game = () => {
   return (
     <>
       <Table />
-      <Puck position={[0, 0.1, 0]}/>
+      <Puck />
       <Paddle  />
       <PointerDetector />
     </>
