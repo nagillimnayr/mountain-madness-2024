@@ -33,29 +33,32 @@ const io = new Server(server, {
 io.on('connection', (socket) => {
   console.log('a user connected');
   socket.on('player1 pos', ({x, y}: { x: number, y: number}) => {
-    // console.log('update pos1: ', x, y);
     serverState.player1.position.set(x, y);
     io.emit('player1 pos', {x, y});
   });
-});
-
-io.on('connection', (socket) => {
-  console.log('a user connected');
   socket.on('player2 pos', ({x, y}: { x: number, y: number}) => {
-    console.log('update pos2: ', x, y);
     serverState.player2.position.set(x, y);
     io.emit('player2 pos', {x, y});
   });
+
+  socket.on('set puck vel', ({x, y}: { x: number, y: number}) => {
+    serverState.puck.velocity.set(x, y);
+  });
+
+  socket.on('update puck', ({delta}: { delta: number}) => {
+    serverState.updatePuck(delta);
+    const {x, y} = serverState.puck.position;
+    io.emit('puck pos', {x, y});
+  });
+
   socket.on('disconnect', () => {
     console.log("user disconnected");
   })
 });
 
-io.on('player1 pos', ({x, y}: { x: number, y: number}) => {
-  console.log('update pos1');
-  serverState.player1.position.set(x, y);
- 
-});
+
+
+
 
 app.get("/", (req: Request, res: Response) => {
   res.send("Express + TypeScript Server!");
